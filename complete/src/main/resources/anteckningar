@@ -3,3 +3,18 @@ https://spring.io/guides/gs/accessing-data-mysql/
 mysql> create database db_example; -- Create the new database
 mysql> create user 'springuser'@'localhost' identified by 'ThePassword'; -- Creates the user
 mysql> grant all on db_example.* to 'springuser'@'localhost'; -- Gives all the privileges to the new user on the newly created database
+
+insert into user values(null,"ingimar.erlingsson@nrm.se","ingimar");
+
+cd betyder 'change directory'
+kör programmet : cd complete
+cd C:\Users\malisaad\netbeansproject\gs-accessing-data-mysql\complete
+
+C:\Users\malisaad\netbeansproject\gs-accessing-data-mysql\complete>mvnw clean package
+
+kör programmet : cd target
+#java -jar gs-accessing-data-mysql-0.1.0.jar 
+java -jar gs-mysql-data-0.1.0.jar
+
+installerat programmet curl för windows:
+curl 'http://localhost:8080/demo/add?name=Kevin&email=kevin.holston@nrm.se'
