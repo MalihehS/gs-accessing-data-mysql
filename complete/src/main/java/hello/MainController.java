@@ -1,7 +1,8 @@
 package hello;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
-import java.util.Optional;
+
+
 
 @Controller    // This means that this class is a Controller
 //@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -44,22 +46,24 @@ public class MainController {
 
     // work-in-progress ..... vad ska jag göra för att returnera en specifik användare ex name=kevin
     // https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
-    @GetMapping(path = "/some")
-    public @ResponseBody
-    Optional<User> getSpecificUser() {
+    @GetMapping(path = "/some") // nästa steg är att skicka in ett namn exempelvis /stream?maliheh ( då tar vu bort 
+//    public @ResponseBody User getSpecificUser(@RequestParam String nameEx) {
+    public @ResponseBody User getSpecificUser() {
         // This returns a JSON or XML with the users
         Iterable<User> all = userRepository.findAll();
 
         String name = "maliheh";
         List<User> myList = Lists.newArrayList(all);
         
-        Optional<User> findFirst = myList.stream().filter(c->c.getName().equals(name)).findFirst();
+//        Optional<User> findFirst = myList.stream().filter(c->c.getName().equals(name)).findFirst();
+        User user = myList.stream().filter(c->c.getName().equals(name)).findFirst().get();
         System.out.println("*****");
-        System.out.println("***** "+findFirst);
+//        System.out.println("*****" +nameEx);
+        System.out.println("***** "+user);
         System.out.println("*****");
         
         
            
-        return findFirst;
+        return user;
     }
 }
