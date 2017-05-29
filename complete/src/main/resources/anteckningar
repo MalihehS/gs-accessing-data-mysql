@@ -18,3 +18,8 @@ java -jar gs-mysql-data-0.1.0.jar
 
 installerat programmet curl för windows:
 curl 'http://localhost:8080/demo/add?name=Kevin&email=kevin.holston@nrm.se'
+
+
+http://localhost:8080/libraryall/some?nameEx=kevin
+
+more about webservices : http://docs.oracle.com/javaee/6/tutorial/doc/gijqy.html
