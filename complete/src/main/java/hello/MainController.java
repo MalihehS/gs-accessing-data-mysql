@@ -24,9 +24,7 @@ public class MainController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        User n = new User();
-        n.setName(name);
-        n.setEmail(email);
+        User n = new User(name, email);
         userRepository.save(n);
         return "Saved";
     }
@@ -38,15 +36,32 @@ public class MainController {
     }
 
     // https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
-    @GetMapping(path = "/some") 
+    @GetMapping(path = "/some")
     public @ResponseBody
     User getSpecificUser(@RequestParam String name) {
-        // This returns a JSON or XML with the users
-
+        String newName = name.toLowerCase();
+        
         Iterable<User> all = userRepository.findAll();
         List<User> myList = Lists.newArrayList(all);
-        User user = myList.stream().filter(c -> c.getName().equals(name)).findFirst().get();
+        boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
+        
+        System.out.println("****************");
+        System.out.println("present ? "+present);
+        System.out.println("newName "+newName);
+        System.out.println("****************");
+        
+        User user = new User("empty");
+        if (present) {
+            user = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().get();
+        } else {
+            user = new User("user " + newName + " does not exist");
+        }
 
         return user;
     }
-}
+    // @GetMapping(path = "/testing")
+    //public @ResponseBody
+    //Iterable<User> getAllUsersTesting() {
+    //   return userRepository.findAll();  // This returns a JSON or XML with the users
+    }
+
