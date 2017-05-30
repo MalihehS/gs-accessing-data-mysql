@@ -23,34 +23,60 @@ public class MainController {
     String addNewUser(@RequestParam String name, @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
+        String newName = name.toLowerCase();
 
-        User n = new User(name, email);
-        userRepository.save(n);
-        return "Saved";
+        Iterable<User> all = userRepository.findAll();
+        List<User> myList = Lists.newArrayList(all);
+        boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
+        //boolean pre = myList.stream().filter(p -> p.getEmail().equals(email)).findFirst().isPresent();
+
+        System.out.println("*****ADDING******");
+        System.out.println("present ? " + present);
+        System.out.println("newName " + newName);
+        System.out.println("****************");
+
+        User user = new User("empty");
+        String result="empty";
+        if (present) {
+            
+           // user = new User("user " + newName + " does exist");
+            result="Can not add "+newName + "because it is exist";
+            
+        } else {
+            if (email.isEmpty()){
+            result="will not add user "  + newName + " because email is empty";
+            }
+            else {
+            User newPerson = new User(name, email);
+            userRepository.save(newPerson);
+            result="Done";
+            }
+        }
+        return result;
+
     }
-
+    
     @GetMapping(path = "/all")
     public @ResponseBody
     Iterable<User> getAllUsers() {
         return userRepository.findAll();  // This returns a JSON or XML with the users
     }
+
     @GetMapping(path = "/del") // skicka in ett namn
-    public @ResponseBody boolean deletaOneUser(@RequestParam String name) {
+    public @ResponseBody
+    boolean deletaOneUser(@RequestParam String name) {
         String newName = name.toLowerCase();
-        
+
         Iterable<User> all = userRepository.findAll();
         List<User> myList = Lists.newArrayList(all);
         boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
-        System.out.println("****************");
-        System.out.println("present ? "+present);
-        System.out.println("newName "+newName);
-        System.out.println("****************");
-        
+      
+
         User user = new User("empty");
         if (present) {
             user = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().get();
             userRepository.delete(user);
-            
+
         } else {
             user = new User("user " + newName + " does not exist");
         }
@@ -62,16 +88,11 @@ public class MainController {
     public @ResponseBody
     User getSpecificUser(@RequestParam String name) {
         String newName = name.toLowerCase();
-        
+
         Iterable<User> all = userRepository.findAll();
         List<User> myList = Lists.newArrayList(all);
         boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
-        
-        System.out.println("****************");
-        System.out.println("present ? "+present);
-        System.out.println("newName "+newName);
-        System.out.println("****************");
-        
+
         User user = new User("empty");
         if (present) {
             user = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().get();
@@ -81,6 +102,5 @@ public class MainController {
 
         return user;
     }
-   
-    }
 
+}
