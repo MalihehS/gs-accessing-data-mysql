@@ -34,6 +34,28 @@ public class MainController {
     Iterable<User> getAllUsers() {
         return userRepository.findAll();  // This returns a JSON or XML with the users
     }
+    @GetMapping(path = "/del") // skicka in ett namn
+    public @ResponseBody boolean deletaOneUser(@RequestParam String name) {
+        String newName = name.toLowerCase();
+        
+        Iterable<User> all = userRepository.findAll();
+        List<User> myList = Lists.newArrayList(all);
+        boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
+        System.out.println("****************");
+        System.out.println("present ? "+present);
+        System.out.println("newName "+newName);
+        System.out.println("****************");
+        
+        User user = new User("empty");
+        if (present) {
+            user = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().get();
+            userRepository.delete(user);
+            
+        } else {
+            user = new User("user " + newName + " does not exist");
+        }
+        return false;
+    }
 
     // https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
     @GetMapping(path = "/some")
@@ -59,9 +81,6 @@ public class MainController {
 
         return user;
     }
-    // @GetMapping(path = "/testing")
-    //public @ResponseBody
-    //Iterable<User> getAllUsersTesting() {
-    //   return userRepository.findAll();  // This returns a JSON or XML with the users
+   
     }
 
