@@ -34,4 +34,4 @@ vi har x-antal 'endpoints' (ep)
 1. filter one : http://localhost:8080/libraryall/some?name=kevin
 2. all: http://localhost:8080/libraryall/all
 3. adding http://localhost:8080/libraryall/add/?name=fredrik&email=fredrik@nrm.se
-4. delete ? : 
+4. delete ? : http://localhost:8080/libraryall/del?name=maliheh
