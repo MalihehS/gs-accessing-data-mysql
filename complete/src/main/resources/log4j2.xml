@@ -12,7 +12,7 @@
                 </pattern>
             </PatternLayout>
         </Console>
-        <File name="App-Appender" fileName="${path}/app_log.log">
+        <File name="App-Appender" fileName="${path}/malihehs_logging.log">
             <PatternLayout>
                 <pattern>
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
@@ -40,10 +40,10 @@
             <AppenderRef ref="App-Appender" />
             <AppenderRef ref="Console-Appender" />
         </Logger>-->
-        <Logger name="hello" level="debug"
+        <Logger name="hello" level="info"
                 additivity="false">
             <AppenderRef ref="App-Appender" />
-            <AppenderRef ref="Console-Appender" />
+            <!--<AppenderRef ref="Console-Appender" />--> <!-- by removing this, logger will only write to file and not to console -->
         </Logger>
         
     </Loggers>
