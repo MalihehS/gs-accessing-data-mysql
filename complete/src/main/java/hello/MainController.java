@@ -25,8 +25,6 @@ public class MainController {
     @GetMapping(path = "/hello")
     public @ResponseBody
     String hello() {
-
-        //BasicConfigurator.configure();
         logger.debug("row 30, Debug message");
         logger.info("row 31,Info message");
         logger.warn("row 32,Warn message");
@@ -39,17 +37,13 @@ public class MainController {
     String addNewUser(@RequestParam String name, @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
+        logger.info("name "+name+" and email "+ email);
         String newName = name.toLowerCase();
 
         Iterable<User> all = userRepository.findAll();
         List<User> myList = Lists.newArrayList(all);
         boolean present = myList.stream().filter(c -> c.getName().equals(newName)).findFirst().isPresent();
         //boolean pre = myList.stream().filter(p -> p.getEmail().equals(email)).findFirst().isPresent();
-
-        System.out.println("*****ADDING******");
-        System.out.println("present ? " + present);
-        System.out.println("newName " + newName);
-        System.out.println("****************");
 
         User user = new User("empty");
         String result = "empty";
