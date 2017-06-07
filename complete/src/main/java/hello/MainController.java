@@ -39,6 +39,7 @@ public class MainController {
         // @RequestParam means it is a parameter from the GET or POST request
         logger.info("name "+name+" and email "+ email);
         String newName = name.toLowerCase();
+        logger.error("kommer denna med i log-filen app_log.log ?");
 
         Iterable<User> all = userRepository.findAll();
         List<User> myList = Lists.newArrayList(all);

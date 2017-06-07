@@ -28,17 +28,23 @@
         </File>
     </Appenders>
     <Loggers>
+        <Root>
+            <AppenderRef ref="Console-Appender" />
+        </Root>
         <Logger name="org.springframework.web" level="info" additivity="false">
             <AppenderRef ref="SpringBoot-Appender" />
             <AppenderRef ref="Console-Appender" />
         </Logger>
-        <Logger name="hello" level="info"
+        <!--        <Logger name="hello" level="info"
+                additivity="false">
+            <AppenderRef ref="App-Appender" />
+            <AppenderRef ref="Console-Appender" />
+        </Logger>-->
+        <Logger name="hello" level="debug"
                 additivity="false">
             <AppenderRef ref="App-Appender" />
             <AppenderRef ref="Console-Appender" />
         </Logger>
-        <Root>
-            <AppenderRef ref="Console-Appender" />
-        </Root>
+        
     </Loggers>
 </Configuration>
