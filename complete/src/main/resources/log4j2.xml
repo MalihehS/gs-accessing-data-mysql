@@ -10,7 +10,6 @@
                 <pattern>
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
                 </pattern>
-                >
             </PatternLayout>
         </Console>
         <File name="App-Appender" fileName="${path}/app_log.log">
